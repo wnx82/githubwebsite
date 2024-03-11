@@ -1,13 +1,13 @@
 <?php
 for($i=0;$i<10;$i++){
-echo 'bonjour tof {$i}';
+echo `bonjour tof {$i}`;
 
 
 }
 ?>
 
 <h1> Bonjour Christophe </h1>
-
+<h2> Workflow working</h2>
 
 <pre>
       _ _,---._
