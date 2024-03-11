@@ -46,6 +46,6 @@ jobs:
           # key: ${{ secrets.VPS_SAM_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            ls -l
+            # ls -l
             cd /home/site/wnx
             git pull origin main
