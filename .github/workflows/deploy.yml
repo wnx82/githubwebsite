@@ -42,7 +42,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_SAM_HOST }}
-          username: ${{ VPS_SAM_USERNAME }}
+          username: ${{ secrets.VPS_SAM_USERNAME }}
           key: ${{ secrets.VPS_SAM_SSH_PRIVATE_KEY }}
           port: 22
           script: |
