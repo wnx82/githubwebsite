@@ -42,7 +42,8 @@ jobs:
         with:
           host: ${{ secrets.VPS_SAM_HOST }}
           username: ${{ secrets.VPS_SAM_USERNAME }}
-          key: ${{ secrets.VPS_SAM_SSH_PRIVATE_KEY }}
+          password: ${{ secrets.VPS_SAM_PASSWORD }}
+          # key: ${{ secrets.VPS_SAM_SSH_PRIVATE_KEY }}
           port: 22
           script: |
             ls -l
