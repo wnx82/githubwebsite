@@ -2,21 +2,21 @@ name: Deploy to VPS
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNHCoeoNE7RE5XEH3DltrwYBwktV29bKy1eZ9LlWVCXwx22V8Emle44f2myMMXe761KvVsAfq3WcT4neVCZ/4Y7qRRg6QSiki2sCOr5WwuGny7hrby6kJjgJu9x2/uEMznbgTjldMohAHlESqC6l6rB/SJFQ/SsbOXroBPjssQIpVak9f3MShCfMhBT5XVSirpOSpu1zlS9SaZZx2GTNiWbkki+8qHNPhKPdHIgAwO+IiHo8laYSR/7qqzW0yfhssxKEBDdDlQjCErxEtNYiaZ1i4vm0pymvE0FTxWL0FvaiWCHIPqe6VZD/y5IXZSBLIizozWQgGqiIES+Ep4RAnmKEeBsV/ylKEJKAxEyHVydtUL3j04keOvKJjuEB1UZ6x4lVe4USa7ehb3xlPJMgHm/snTsukm8amR/SRiokkponxRs2thIwBAJwn1FDZo+H3bWk+h1UGX1+mpyHBuS7jvpk5wCFHttPsSXYkd4ROqQUdlblucTlMiC5Qv5fVqXX0= root@LAPTOP-WnX
-        
-    - name: Deploy to VPS
-      run: |
-        ssh -o StrictHostKeyChecking=no wnx@217.182.193.152 'bash -s' < deploy_script.sh
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no wnx@${{ secrets.VPS_HOST }} 'bash -s' < deploy_script.sh
