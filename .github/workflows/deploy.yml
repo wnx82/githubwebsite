@@ -1,22 +1,49 @@
-name: Deploy to VPS
+# name: Deploy to VPS
+
+# on:
+#   push:
+#     branches: [main]
+#   workflow_dispatch:
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup SSH
+#         uses: webfactory/ssh-agent@v0.5.3
+#         with:
+#           ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+#       - name: Deploy to VPS
+#         run: |
+#           ssh -o StrictHostKeyChecking=no wnx@${{ secrets.VPS_HOST }} 'bash -s' < deploy_script.sh
+
+name: Deploying the application
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  deploy_image:
+    needs: build_image
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-
-      - name: Deploy to VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no wnx@${{ secrets.VPS_HOST }} 'bash -s' < deploy_script.sh
+          host: ${{ secrets.VPS_SAM_HOST }}
+          username: ${{ VPS_SAM_USERNAME }}
+          key: ${{ secrets.VPS_SAM_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            ls -l
