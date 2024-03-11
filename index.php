@@ -1,13 +1,12 @@
 <?php
-for($i=0;$i<10;$i++){
-echo `bonjour tof {$i}`;
-
-
+for ($i = 0; $i < 10; $i++) {
+    echo "bonjour tof {$i}\n"; // Utilisez des guillemets doubles pour l'interpolation
 }
 ?>
 
+
 <h1> Bonjour Christophe </h1>
-<h2> Workflow working essai 3</h2>
+<h2> Workflow working essai 4 with personal login</h2>
 
 <pre>
       _ _,---._
